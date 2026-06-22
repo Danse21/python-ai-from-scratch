@@ -16,3 +16,6 @@ def find_max(numbers):
   return biggest_so_far
 result = find_max([50, 24, 72, 99])
 print(result)
+
+# Complexity = O(n) (linear time): This is because the time it takes to run the code increases
+# as the number of iimes (n elements) to loop through increases.
