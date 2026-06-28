@@ -1,4 +1,5 @@
 
+from __future__ import annotations
 from collections import Counter
 def count_nucleotide(dna: str) -> tuple[int, int, int, int]:
   """Count A, C, G, T occurances in a DNA string. Returns counts in that order."""
