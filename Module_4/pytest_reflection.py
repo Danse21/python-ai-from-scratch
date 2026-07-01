@@ -36,6 +36,6 @@ def test_high_risk_score():
 
 # Concluding statement:
 # A unit test should never touch the file system, a database, or network.
-# Only integration test does, that what differentiates the two.
-# If your function does those things,
+# Only integration test does (test that two or more components work together),
+# that what differentiates the two. If your function does those things,
 # split it so the pure logic can be unit tested in isolation
