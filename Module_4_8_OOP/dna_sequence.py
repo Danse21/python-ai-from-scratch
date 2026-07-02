@@ -15,8 +15,11 @@ class DNASequence:
     self.sample_id = sample_id
     self.sequence = sequence
 
-  def get_length(self) -> int:
+  def __len__(self) -> int:
     return len(self.sequence)
+
+  def __eq__(self, other) -> bool:
+    return self.sequence == other.sequence
 
   def gc_content(self) -> float:
     return calculate_gc_content(self.sequence)
@@ -24,10 +27,14 @@ class DNASequence:
 
   def __str__(self) -> str:
     """Used by print()"""
-    return f"Sample {self.sample_id}: {self.gc_content()} {self.sequence} ({self.get_length()} bases)"
+    return f"Sample {self.sample_id}: {self.gc_content()} {self.sequence} ({len(self)} bases)"
 
 # S1 = DNASequence("P001", "AGCTTTTCA")
 S2 = DNASequence("P002", "AGCTTTTCATTCTGACCTGCAACGGGCAATACCTC")
 
 # print(S1)
 print(S2)
+
+# Dunder methods are meant to be invoked through the built-ins
+# (len(), ==, print()), not called directly. The built-in does a bit more than
+# just calling the method — it also does type checking and optimizations.
