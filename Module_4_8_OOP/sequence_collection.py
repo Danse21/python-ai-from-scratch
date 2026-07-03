@@ -23,6 +23,7 @@ class SequenceCollection:
     return len(self.dna_sequences)
 
   def average_gc_content(self) -> float:
+    # Check if dna_sequences list is empty
     if len(self) == 0:
       return 0.0
     total = sum(sequence.gc_content() for sequence in self.dna_sequences)
@@ -32,6 +33,6 @@ if __name__ == "__main__":
   collection = SequenceCollection()
   collection.add_sequence(DNASequence("P001", "AGCTTTTCA"))
   collection.add_sequence(DNASequence("P002", "GCGCGCGC"))
-  print(len(collection))
-  print(collection.get_by_id("P001"))
+  print(len(collection))      # Calls __len__()
+  print(collection.get_by_id("P001"))       # Calls __str__() in DNASequences class
   print(collection.average_gc_content())
