@@ -29,12 +29,15 @@ class DNASequence:
     """Used by print()"""
     return f"Sample {self.sample_id}: {self.gc_content()} {self.sequence} ({len(self)} bases)"
 
-# S1 = DNASequence("P001", "AGCTTTTCA")
-S2 = DNASequence("P002", "AGCTTTTCATTCTGACCTGCAACGGGCAATACCTC")
+if __name__ == "__main__":
+  # S1 = DNASequence("P001", "AGCTTTTCA")
+  S2 = DNASequence("P002", "AGCTTTTCATTCTGACCTGCAACGGGCAATACCTC")
 
-# print(S1)
-print(S2)
+  # print(S1)
+  print(S2)
 
 # Dunder methods are meant to be invoked through the built-ins
 # (len(), ==, print()), not called directly. The built-in does a bit more than
 # just calling the method — it also does type checking and optimizations.
+# Python classes communicate with built-in operations through
+# dunder (double underscore) methods: __len__(), __eq__(), __str__().
