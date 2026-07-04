@@ -1,4 +1,7 @@
-# Summer 2026: Python, Data Science & AI training documentation
+# Summer 2026: Python, Data Science & AI Training Documentation
 
-This project is a self-motivated training program that I embarked upon during the summer holidays. The purpose is to strengthen my proficiency in python programming and its application in Data science and AI. It started from Python and AI fundamentals.
-Each folder contains solutions to exercises treated at the end of the respective module.
+This repository documents my self-motivated training program that I embarked upon during the summer holidays. The purpose is to strengthen my proficiency in Python programming and its application in Data Science and AI. It starts off from fundamentals and goes all the way to advanced concepts.
+
+Throughout this training, I used **Claude AI** for architectural design, structured guidance, and to generate real world exercises as well as get feedback from my solutions (acting as a senior developer).
+
+Each folder contains solutions to exercises completed at the end of each module.
