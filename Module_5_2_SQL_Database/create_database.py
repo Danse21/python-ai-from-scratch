@@ -21,7 +21,7 @@ cursor.execute("""
         organism    TEXT
   )
 """)
-conn.commit()     # svae the changes
+conn.commit()     # save the changes
 
 data = [
   ("P001", "AGCTTTTCA", 33.33, "E. coli"),
@@ -41,3 +41,15 @@ conn.commit()
 # Query and print all rows
 df = pd.read_sql_query("SELECT * FROM sequences", conn)
 print(df)
+
+# Write three separate queries:
+# All sequences from a specific organism
+df2 = pd.read_sql_query("SELECT * FROM sequences WHERE organism = ?", conn, params=("H. sapiens",))
+print(df2)
+# All sequences with gc_content above 50%, ordered highest to lowest
+df3 = pd.read_sql_query("SELECT * FROM sequences WHERE gc_content > 50 ORDER BY gc_content DESC", conn)
+print(df3)
+# The average gc_content across all sequences
+df4 = pd.read_sql_query("SELECT AVG(gc_content) AS avg_gc_content FROM sequences", conn)
+print(df4)
+
