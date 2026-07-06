@@ -106,3 +106,5 @@ print(df6)
 # tables that have matches (value under sequences.organism == value under organisms.name)
 # wheres the LEFT JOIN query returns all the rows from the left table and only rows in the right table
 # that match the left table rows, with NaN for rows on the right table without matches.
+# The choice between JOIN and LEFT JOIN is a deliberate decision: do you want to silently lose unmatched rows,
+# or keep them and flag the gaps with NaN?
