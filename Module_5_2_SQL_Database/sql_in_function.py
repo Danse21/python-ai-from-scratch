@@ -2,7 +2,7 @@
 # Connect your OOP work to SQL: write a function save_sequence(seq: DNASequence, organism: str, conn)
 # that takes a DNASequence object and inserts it into the database, computing gc_content automatically.
 # Write a second function load_sequences(conn) -> list[DNASequence] that reads all rows and
-#  returns a list of DNASequence objects. Test both.
+# returns a list of DNASequence objects. Test both.
 
 import sys
 import os
