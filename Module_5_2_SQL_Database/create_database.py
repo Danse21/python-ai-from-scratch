@@ -2,12 +2,16 @@
 # (columns: id, sample_id, sequence, gc_content, organism).
 # Insert at least 5 rows with realistic data. Then query and print all rows.
 
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from config import DB_PATH
 import sqlite3
 import pandas as pd
 
 # Create the .db file
 # SQLite (SQL without a server) stores an entire database in a single .db file
-conn = sqlite3.connect("biodata.db")   # Connects to the database
+conn = sqlite3.connect(DB_PATH)   # Connects to the database
 cursor = conn.cursor()   # used to execute SQL commands
 
 # Create a sequence table

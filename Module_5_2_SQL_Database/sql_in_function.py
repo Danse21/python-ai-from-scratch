@@ -7,6 +7,7 @@
 import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from config import DB_PATH
 import sqlite3
 from Module_4_8_OOP.dna_sequence import DNASequence
 
@@ -30,7 +31,7 @@ def load_sequences(conn) -> list[DNASequence]:
 
 # Test both functions
 if __name__ == "__main__":
-  conn = sqlite3.connect("biodata.db")
+  conn = sqlite3.connect(DB_PATH)
   new_seq = DNASequence("P006", "AGTTCGCGATGAAGCTA")
   save_sequence(new_seq, "A. thaliana", conn)
   sequences = load_sequences(conn)
