@@ -23,7 +23,7 @@ plt.hist(df_simulated["gc_content"], bins=30)
 plt.xlabel("GC Content (%)")
 plt.ylabel("Frequency")
 plt.title("GC Content Distribution - 1000 Simulated Sequences")
-# plt.show()
+plt.show()
 
 # Compute statistics and probability
 mean_gc = np.mean(df_simulated["gc_content"])
