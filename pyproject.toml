@@ -4,6 +4,7 @@ version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
     "biopython>=1.87",
+    "numpy>=2.5.0",
     "pandas>=3.0.3",
     "python-dotenv>=1.2.2",
 ]
