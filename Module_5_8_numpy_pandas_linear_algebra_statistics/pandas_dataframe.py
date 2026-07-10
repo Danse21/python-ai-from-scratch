@@ -19,12 +19,28 @@ reorder_column = ["id", "sample_id", "sequence", "length", "gc_content", "organi
 df = df[reorder_column]
 # Filter rows where GC content is above the mean
 mean_gc = np.mean(df["gc_content"])   # 52.28
-print(df[df["gc_content"] > mean_gc])
+# print(df[df["gc_content"] > mean_gc])
 
 # Multiple aggregations: Group by organism and compute mean GC content and mean length per organism
 grouped = df.groupby("organism").agg(
   avg_cg = ("gc_content", "mean"),
   mean_length = ("length", "mean")
 )
-print(grouped)
 
+
+# Övning 4
+# Introduce NaN values into your DataFrame manually (set 2 gc_content values
+# and 1 organism to NaN). Show the missing value counts. Fill numeric NaN with
+# the column mean and categorical NaN with "Unknown". Verify no NaN remain.
+
+# Introduec NaN
+df.loc[[1, 2], ["gc_content"]] = np.nan
+df.loc[2, ["organism"]] = np.nan
+print(df.isnull().sum())    # missing value count
+
+# Fill NaN
+df_filled = df.fillna({"gc_content": df["gc_content"].mean(skipna=True), "organism": "Unknown"})
+print(df_filled)
+
+# Verify no NaN remain
+print(df_filled.isnull().sum())
