@@ -82,3 +82,21 @@ rf_model.fit(X_train_scaled, y_train)
 print(f"Random Forest Accuracy: {rf_model.score(X_test_scaled, y_test):.3f}")
 
 # Based on printed result, Logistic Regression is slightly more accurate with a value of 0.835 as against 0.805 for Random Forest.
+
+
+# Övning 2
+# Print feature importances from your Random Forest. Which feature is most predictive of
+# prokaryote vs eukaryote? Does that match your biological intuition?
+
+features_names = ["length", "gc_content", "a_count", "t_count", "g_count", "c_count"]
+importances = rf_model.feature_importances_
+
+for name, importance in sorted(zip(features_names, importances),
+                               key=lambda x: x[1], reverse=True):
+  print(f"{name}: {importance:.3f}")
+
+# The most predictive feature is the number of T followed by the number of A in the
+# DNA sequence. Since we defined from start that prokaryotic sequences will have
+# higher GC content compare to eukaryotic sequences, it matches to see that AT content
+# are the top two predictive features. High GC content in prokaryotes means low AT,
+# so A count and T count are mirror image of GC content.
