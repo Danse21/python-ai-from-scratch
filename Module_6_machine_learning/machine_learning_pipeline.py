@@ -48,7 +48,7 @@ print(df["label"].value_counts())
 
 # Features and labels
 # Features: what the model learns from
-X = df[["length", "gc_content", "a_count", "t_count", "g_count", "c_count"]]. values
+X = df[["length", "gc_content", "a_count", "t_count", "g_count", "c_count"]].values
 # Labels: whats we're predicting (0 = prokaryote, 1 = eukaryote)
 y = df["label"].values
 
@@ -125,5 +125,36 @@ print(f"RF Mean: {rf_scores.mean():.3f} ± {rf_scores.std():.3f}")
 # they see during training, resulting to more fluctuations between folds.
 # 5-fold cross validation means that cross validation method averages 5 different splits,
 # which is more reliable than a single split. Single split result can be partially a product of
-# random chance in how the data was divided, but with cross-validation five splits averages out the
-# randomness.
+# random chance in how the data was divided, but cross-validation splits the data 5 times and
+# averages out the randomness.
+
+
+# Övning 4
+# Run PCA and plot the 2D projection. Can you visually see separation between prokaryotes
+# and eukaryotes? Print how much variance the two components explain.
+
+# Principal Component Analysis (PCA) is an unsupervised dimensionality reduction technique
+# used to simplify complex datasets. It reduces the number of features (dimensions) while
+# retaining the most important information, which helps speed up model training, reduce
+# overfitting, and allow for easier data visualization.
+
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X_train_scaled)
+
+plt.scatter(X_pca[y_train==0, 0], X_pca[y_train==0, 1], label="Prokaryote", alpha=0.5)
+plt.scatter(X_pca[y_train==1, 0], X_pca[y_train==1, 1], label="Eukaryote", alpha=0.5)
+plt.legend()
+plt.title("PCA: 2D projection of DNA sequence features")
+plt.show()
+print(f"Variance explained: {pca.explained_variance_ratio_}")    # Variance explained: [0.63242425 0.3587528 ]
+
+# On the PCA 2D projection plot, I observed that prokaryotes clustered towards the left while
+# eukaryotes clustered towards the right, with some overlap in the middle.The overlaps is in line
+# with previous observation about accuracy been about 87% and not 100%. I also oberved that
+# the model better predicts prokaryotes than eukaryotes. This is exactly as estimated early
+# that prokaryotes precision is higher than eukaryotes, resulting in more eukaryotes outliers
+# drifting into the prokaryotes region.
+
