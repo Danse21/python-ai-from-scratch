@@ -100,3 +100,30 @@ for name, importance in sorted(zip(features_names, importances),
 # higher GC content compare to eukaryotic sequences, it matches to see that AT content
 # are the top two predictive features. High GC content in prokaryotes means low AT,
 # so A count and T count are mirror image of GC content.
+
+
+
+# Övning 3
+# Run 5-fold cross-validation on both models. Compare mean accuracy and standard deviation.
+# Which model is more consistent?
+
+from sklearn.model_selection import cross_val_score
+
+# for Logistic Regression
+lr_scores = cross_val_score(model, X_train_scaled, y_train, cv=5)
+print(f"LR CV scores: {lr_scores}")
+print(f"LR Mean: {lr_scores.mean():.3f} ± {lr_scores.std():.3f}")
+
+# for Random Forest
+rf_scores = cross_val_score(rf_model, X_train_scaled, y_train, cv=5)
+print(f"RF CV scores: {rf_scores}")
+print(f"RF Mean: {rf_scores.mean():.3f} ± {rf_scores.std():.3f}")
+
+# More consistent model
+# Logistic Regression model is with std=0.007 is twice more consistent compared to Random Forest model
+# std=0.016. The higher variance in RF is because decision trees are sensitive to which specific samples
+# they see during training, resulting to more fluctuations between folds.
+# 5-fold cross validation means that cross validation method averages 5 different splits,
+# which is more reliable than a single split. Single split result can be partially a product of
+# random chance in how the data was divided, but with cross-validation five splits averages out the
+# randomness.
