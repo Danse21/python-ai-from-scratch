@@ -52,7 +52,7 @@ class MLPipeline:
       print(f"{name}: {importance:.3f}")
 
 if __name__ == "__main__":
-  pipeline = MLPipeline(model_name="random_forest")
+  pipeline = MLPipeline(model_name="logistic")
   pipeline.load_data()
   pipeline.preprocess()
   pipeline.train()
