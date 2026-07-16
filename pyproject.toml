@@ -4,14 +4,23 @@ version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
     "biopython>=1.87",
+    "deepchem>=2.8.0",
+    "fair-esm>=2.0.0",
     "matplotlib>=3.11.0",
     "numpy>=2.5.0",
     "pandas>=3.0.3",
     "python-dotenv>=1.2.2",
     "scikit-learn>=1.9.0",
+    "torch>=2.2.2",
+    "torchvision>=0.17.2",
 ]
 
 [dependency-groups]
 dev = [
     "pytest>=9.1.1",
+]
+
+[tool.uv]
+required-environments = [
+    "sys_platform == 'darwin' and platform_machine == 'x86_64'"
 ]
