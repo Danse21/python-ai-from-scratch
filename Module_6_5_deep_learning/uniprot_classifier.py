@@ -1,7 +1,4 @@
-# Write a function fetch_protein_data(uniprot_id: str) -> dict that fetches sequence, organism,
-# protein name, and gene name from UniProt REST API. Test it on at least 3 proteins relevant to
-# drug discovery: BRCA1 (P38398), TP53 (P04637), and EGFR (P00533). Store results in a
-# pandas DataFrame and save to your SQLite database.
+
 
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
