@@ -8,6 +8,7 @@ import torch.optim as optim
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
 
 class CancerClassifier(nn.Module):
   def __init__(self, input_size: int, hidden_size: int, output_size: int):
@@ -15,7 +16,7 @@ class CancerClassifier(nn.Module):
     self.network = nn.Sequential(
       nn.Linear(input_size, hidden_size),
       nn.ReLU(),
-      nn.Dropout(0.3),
+      nn.Dropout(0.3),    # Deactivates 30% of neurons during training - no relaiance on a single path
       nn.Linear(hidden_size, hidden_size // 2),
       nn.ReLU(),
       nn.Linear(hidden_size // 2, output_size),
@@ -45,6 +46,8 @@ criterion = nn.BCELoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
 # Train loop
+train_losses = []
+val_losses = []
 epochs = 100
 for epoch in range(epochs):
   model.train()                         # set to training mode
@@ -54,8 +57,27 @@ for epoch in range(epochs):
   loss.backward()                       # compute gradient
   optimizer.step()                      # update weights
 
+  # Added validation loss (Övning 2)
+  model.eval()
+  with torch.no_grad():
+    val_pred = model(X_test_t)
+    val_loss = criterion(val_pred, y_test_t)
+
   if (epoch + 1) % 10 == 0:
-    print(f"Epoch {epoch+1}/{epochs}, Loss: {loss.item():.4f}")
+    print(f"Epoch {epoch+1}/{epochs} | Train Loss: {loss.item():.4f} | Validation Loss: {val_loss.item():.4f}")
+
+  # Append both losses each epoch
+  # After training, plot both curves with matplotlib (Övning 2)
+  train_losses.append(loss.item())
+  val_losses.append(val_loss.item())
+
+plt.plot(train_losses, label="Train Loss")
+plt.plot(val_losses, label="Validation Loss")
+plt.xlabel("Epoch")
+plt.ylabel("Loss")
+plt.title("Plot of Training vs Validation Loss")
+plt.legend()
+plt.show()
 
 # Evaluation
 model.eval()              # set to evaluation mode
@@ -67,9 +89,22 @@ with torch.no_grad():     # disable gradient computation
 
 
 # Accuracy comparison
-# The difference in accuracy is small: nn = 0.74 vs LR = 0.970 vs RF = 0.965. This is majorly because the
+# The difference in accuracy is small: nn = 0.974 vs LR = 0.970 vs RF = 0.965. This is majorly because the
 # dataset is relatively small and the classes are largely linearly separable.
 # When to use each tool:
 # Logistic Regression: fast, interpretable, strong baseline. Try this model first.
 # Random Forest: handles non-linearity, gives feature importance. Use this model when LR underperforms.
 # Neural Network (nn): data with complex patterns, large data, sequences, images. Use when both models above plateau.
+
+
+
+# Övning 2
+# Add these improvements to your training loop: track training loss per epoch,
+# add a validation loss (using the test set), print both every 10 epochs.
+# Plot both curves using matplotlib. Do they diverge (overfitting) or stay close together?
+
+# Curve description
+# Train Loss = Validation Loss --> No overfitting
+# High validation loss while train loss falls --> overfitting (memorizing training data)
+# If both stay high --> underfitting (model too simple)
+# Both low and close together --> the model generalizes well to unseen data
