@@ -1,24 +1,29 @@
 [project]
 name = "python-ai-from-scratch"
 version = "0.1.0"
-requires-python = ">=3.12"
+requires-python = ">=3.12, <3.13"
 dependencies = [
-    "biopython>=1.87",
-    "deepchem>=2.8.0",
+    # Core Utilities and Data
+    "requests>=2.31.0",
+    "python-dotenv>=1.0.0",
+    "pandas>=2.1.0,<3.0.0",
+    "numpy>=1.26.4,<2.0.0",
+    "matplotlib>=3.8.0",
+
+    # Bioinformatics and Drug Discovery Framework
+    "biopython>=1.83",
+    "deepchem>=2.7.1",
     "fair-esm>=2.0.0",
-    "matplotlib>=3.11.0",
-    "numpy>=2.5.0",
-    "pandas>=3.0.3",
-    "python-dotenv>=1.2.2",
-    "requests>=2.34.2",
-    "scikit-learn>=1.9.0",
+
+    # Machine Learning & Deep Learning
+    "scikit-learn>=1.4.0",
     "torch>=2.2.2",
     "torchvision>=0.17.2",
 ]
 
 [dependency-groups]
 dev = [
-    "pytest>=9.1.1",
+    "pytest>=8.0.0",
 ]
 
 [tool.uv]
