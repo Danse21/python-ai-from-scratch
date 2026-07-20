@@ -1,8 +1,11 @@
-"""Load the BBBP dataset, train a GraphConvModel, evaluate on train and test sets using ROC-AUC.
-Then load a second dataset — BACE (β-secretase inhibition — Alzheimer's drug discovery) using
-dc.molnet.load_bace_classification(). Compare AUC scores between the two datasets.
 """
-import requests, io
+Download the BBBP (Blood-Brain Barrier Penetration) dataset directly from MoleculeNet.
+Use RDKit to convert SMILES strings into 1024-bit Morgan fingerprints (ECFP4). Build and
+train a PyTorch MoleculeClassifier (3-layer feedforward network) on the fingerprint vectors.
+Evaluate using ROC-AUC at each epoch and observe the overfitting pattern — train loss falls
+while validation loss rises after epoch 30. Finally, predict BBB penetration for four real drugs:
+Aspirin, Caffeine, Ibuprofen, and Dopamine, and explain the Dopamine result.
+"""
 import pandas as pd
 import numpy as np
 import torch
@@ -18,7 +21,7 @@ RDLogger.DisableLog("rdApp.*")
 # BBBP = Blood-Brain Barrier Penetration
 # Predict whether a drug molecule can cross the blood-brain barrier
 # Input: SMILES strings (molecular structure as text)
-# Output: 1 = penetrates, 0 = does not penetrate
+# Output: YES = penetrates, NO = does not penetrate
 
 # Download BBBP dataset
 print("Downloading BBBP dataset...")
@@ -149,6 +152,3 @@ Question3:
   confidence of 1.000 is a sign the model is overconfident, not that it's more accurate.
 """
 
-
-
-# Build a deep learning model (Extended Connectivity Fingerprint, ECFP) that Classifies drug molecule dataset
