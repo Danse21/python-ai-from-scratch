@@ -10,6 +10,7 @@ import requests
 import torch
 import numpy as np
 import pandas as pd
+import pickle
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report
@@ -105,6 +106,12 @@ if __name__ == "__main__":
   conn = sqlite3.connect(DB_PATH)
   clf = protein_function_pipeline(all_proteins, labels, conn)
   conn.close()
+
+  project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+  classifier_path = os.path.join(project_root, "Module_6_8_FastAPI", "classifier.pkl")
+  with open("Module_6_8_FastAPI/classifier.pkl", "wb") as f:
+    pickle.dump(clf, f)
+  print(f"Classifier saved to {classifier_path}")
 
 """
 Classification report interpretation:
