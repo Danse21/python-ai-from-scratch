@@ -106,4 +106,13 @@ if __name__ == "__main__":
   clf = protein_function_pipeline(all_proteins, labels, conn)
   conn.close()
 
+"""
+Classification report interpretation:
+Embedding matrix (60, 480) means 60 proteins, each compressed to a 480-dimensional ESM vector.
+All biological information the model knows about each protein fits in those 480 numbers.
+Proteases: recall of 1.00 means that it correctly identified every single protease.
+On the other hand, a precision value of 0.60 means it also mislabeled some kinases as proteases.
+Kinases: recall of 0.33 means that it only caught 3 out of 9 kinases. The other 6 were misclassified
+as proteases. However, a precision value of 1.00 means every kinase it did predict was correct.
+"""
 
