@@ -59,6 +59,8 @@ async def get_protein(uniprot_id: str):
 
 @app.post("/predict", response_model=PredictResponse)
 async def predict_function(request: PredictRequest):
+  if not request.sequence.strip():
+    raise HTTPException(status_code=422, detail="Sequence cannot be empty")
   if ml_model is None:
     raise HTTPException(status_code=503, detail="Classifier not loaded.")
 
