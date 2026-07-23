@@ -1,0 +1,18 @@
+# yaml
+
+services:
+  protein-api:
+    build:
+      context: ..
+      dockerfile: Module_6_9_Docker/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../biodata.db:/app/biodata.db
+
+# What do build.context and build.dockerfile correspond to in the docker build -f ... . command you were running manually earlier?
+# Answer: build.context corresponds to . (dot) at the end of the manual command, which defines the root folder. And build.dockerfile corresponds
+# to -f, which point to path of the Dockerfile to execute during the build process.
+# What's the practical benefit of docker compose up over remembering and retyping the full docker run -p ... -v ... command each time?
+# Answer: The practical benefit of 'docker compose up' is that it provides for running both the build and run commands in one single command instead
+# of separate multi-flag commands.
