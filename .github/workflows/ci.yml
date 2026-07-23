@@ -1,0 +1,44 @@
+# ymal
+# CI/CD automates pytest and deployment using Docker container and runs automatically (on a GiHub server)every time a code is pushed to github.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: check out code
+        uses: actions/checkout@v4
+
+      - name: set up Python
+        uses: actions/setup-python@v5
+        with:
+        python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install uv
+          uv pip install --system --no-cache -r Module_6_9_Docker/requirements.txt
+
+      - name: Run tests
+        run: |
+          cd Module_6_8_FastAPI
+          pytest test_async_endpoint.py -v
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -f Module_6_9_Docker/Dockerfile -t protein-api .
