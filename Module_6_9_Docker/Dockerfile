@@ -24,7 +24,7 @@ WORKDIR /app/Module_6_8_FastAPI
 EXPOSE 8000
 
 # Command to run when container starts
-CMD ["uvicorn", "async_endpoint:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "pydantic_schemas:app", "--host", "0.0.0.0", "--port", "8000"]
 
 
 # What does -p 8000:8000 mean in the docker run command?
@@ -40,3 +40,15 @@ CMD ["uvicorn", "async_endpoint:app", "--host", "0.0.0.0", "--port", "8000"]
 # What does --host 0.0.0.0 do, and why is it necessary inside a container?
 # Answer: 0.0.0.0 means listen on all networks interfaces, ie., that accept connections from both localhost and container's
 # internal network. The -p 8000:8000 mapping does this by forwarding traffic to the container's interanal network interface.
+
+
+# for this command (for data persistent with volume): docker run -p 8000:8000 -v "$(pwd)/biodata.db:/app/biodata.db" protein-api
+# Q1. Why did the data disappear without -v, given the file was already COPY'd into the image at build time?
+# Answer: Because the data was written to the isolated container's image biodata.db file which was not saved and got lost immediately
+# the docker stops. With -v, the data is written and save directly to the local machine's biodata.db and synchronizes in realtime with the app
+# running inside the container, making it available no matter what happens.
+# Q2. What's the difference between a Docker image and a running container that explains this behavior?
+# # Answer: Every running container gets its own writable layer stacked on top of the image's read-only layers. Writes (new data) go into that
+# layer and is tied to that specific container instance, not the image. Every new run creates a fresh new container with a fresh writable layer,
+# starting again from the unchanged image. This is the reason why the data gets lost whenever a new container instance is created, it was never
+# in the image. If the same (previous) container instance was reused or preserved every time, the data would be there always.
