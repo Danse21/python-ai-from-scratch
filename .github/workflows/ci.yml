@@ -26,6 +26,7 @@ jobs:
         run: |
           pip install uv
           uv pip install --system --no-cache -r Module_6_9_Docker/requirements.txt
+          uv pip install --system --no-cache -r Module_6_9_Docker/requirements-test.txt
 
       - name: Run tests
         run: |
