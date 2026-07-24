@@ -22,6 +22,14 @@ jobs:
         with:
           python-version: "3.12"
 
+      # First run download and save the cache (persists the weights into the image or cache) ->
+      # prevents re-downloading of model every single time CI run -> faster CI workflow
+      - name: Cache ESM weights
+        uses: actions/cache@4
+        with:
+          path: ~/.cache/torch/hub/checkpoints
+          key: esm2-t12-35M-UR50D
+
       - name: Install dependencies
         run: |
           pip install uv
@@ -43,3 +51,14 @@ jobs:
 
       - name: Build Docker image
         run: docker build -f Module_6_9_Docker/Dockerfile -t protein-api .
+
+# Reflection questions:
+# Q1. What does needs: test do in the build job, and why does that ordering matter here specifically (hint: think about what happens if you build an image around code that fails its own tests)?
+# Answer: Needs: test does a requirement check. It simply says that for build job to begin, test job needs to be successfully completed. It's like an admission requirement. The ordering matters
+# to ensure that the codes that gets to build in the docker container are functional code.
+# Q2. Your ESM model download in the Docker build step will make CI slow (recall it downloaded weights from dl.fbaipublicfiles.com in your earlier docker run logs). Is that a CI problem,
+# a Dockerfile problem, or both — and what's one way you'd address it?
+# Answer: It is both (CI and Dockerfile problem). See adjusted portion in both ci.yml and Dockerfile files. The adjustment is majorly to stop re-downloading of the model during every CI run.
+# And a solution was to save cache of the download weight into the image or a cache.
+# Q3. This workflow runs on every push to main and on every pull request. Why would a team want tests to run on a PR before it merges, rather than only after it lands on main?
+# Answer: A team would want to run a test on a every pull request before it merges to the main to ensure that the incoming code is executable and well written.
