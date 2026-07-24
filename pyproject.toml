@@ -19,6 +19,7 @@ dependencies = [
     "torchvision>=0.17.2",
     "fastapi>=0.139.2",
     "uvicorn>=0.51.0",
+    "aiosqlite>=0.22.1",
 ]
 
 [dependency-groups]

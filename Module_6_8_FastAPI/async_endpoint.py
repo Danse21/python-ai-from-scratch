@@ -7,6 +7,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config import DB_PATH
 from sklearn.linear_model import LogisticRegression
 import pickle
+import aiosqlite
 
 # Pydantic models
 class PredictRequest(BaseModel):
@@ -48,11 +49,10 @@ async def root():
 
 @app.get("/Protein/{uniprot_id}")
 async def get_protein(uniprot_id: str):
-  conn = sqlite3.connect(DB_PATH)
-  cursor = conn.cursor()
-  cursor.execute("SELECT * FROM drug_targets WHERE uniprot_id = ?", (uniprot_id,))
-  row = cursor.fetchone()
-  conn.close()
+  async with aiosqlite.connect(DB_PATH) as conn:
+    cursor = await conn.execute("SELECT * FROM drug_targets WHERE uniprot_id = ?", (uniprot_id,))
+    row = await cursor.fetchone()
+
   if row is None:
     raise HTTPException(status_code=404, detail=f"{uniprot_id} not found")
   return {"uniprot_id": row[0], "protein_name": row[1], "gene_name": row[2], "organism": row[3], "sequence": row[4]}
@@ -93,4 +93,15 @@ Answer: async allows the server to handle multiple requests concurrently without
 With regular def, one slow request (like database query, file read, etc) blocks other requests
 behind it. async def, on the other hand, pauses a slow request (or operation e.g., await database_query())
 and immediately handles the next one. Later when the slow operation finishes, it resumes it again.
+"""
+
+"""
+async/await reflection question:
+Q1. If get_protein stayed async def but you forgot to swap sqlite3.connect() → aiosqlite.connect(), would it still run? What would be silently wrong?
+Answer: Yes, the code will still run but there will be a concurrency problem. sqlite3.connect() is a blocking call. And even though the function is
+# declared async def, without await, a request comes in and starts querying the database immediately resulting to freezing of the entire event loop
+# until that query finishes. That causes any other request that might arrive during that window to wait in line. That is what will be silently wrong -> slow process.
+Q2. Why did await cursor.fetchone() need await but the raise HTTPException(...) right after it didn't?
+Answer: The raise HTTPException(...) does not require await because it does not involve a slow request like database query or file read.
+# Its rather a quick check of "row" content. NB: await is only needed for something that's actually a coroutine/awaitable (I/O-bound operations).
 """

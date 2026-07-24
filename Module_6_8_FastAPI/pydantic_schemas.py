@@ -8,6 +8,7 @@ from pydantic import BaseModel
 import sqlite3, sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config import DB_PATH
+import aiosqlite
 
 app = FastAPI(title="Protein Function API", version="1.0.0")
 
@@ -35,22 +36,21 @@ def get_protein(uniprot_id: str):
   return {"uniprot_id": row[0], "protein_name": row[1], "gene_name": row[2], "organism": row[3]}
 
 @app.post("/protein", response_model=SequenceResponse)
-def submit_protein(request: SequenceRequest):
+async def submit_protein(request: SequenceRequest):
   # Validate sequence, only 20 standard amino acids
   valid_aa = set("ACDEFGHIKLMNPQRSTVWY")
   invalid = [aa for aa in request.sequence.upper() if aa not in valid_aa]
   if invalid:
     raise HTTPException(status_code=400, detail=f"Invalid amino acids: {set(invalid)}")
 
+  # Optimize to use async/await
   # Save to database
-  conn = sqlite3.connect(DB_PATH)
-  cursor = conn.cursor()
-  cursor.execute("""
+  async with aiosqlite.connect(DB_PATH) as conn:
+    cursor = await conn.execute("""
             INSERT OR IGNORE INTO drug_targets (uniprot_id, protein_name, gene_name, organism)
             VALUES (?, ?, ?, ?)
-  """, (request.uniprot_id, "Submitted manually", "", request.organism))
-  conn.commit()
-  conn.close()
+    """, (request.uniprot_id, "Submitted manually", "", request.organism))
+    await conn.commit()
 
   return SequenceResponse(
     uniprot_id=request.uniprot_id,
