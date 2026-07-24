@@ -25,7 +25,7 @@ jobs:
       # First run download and save the cache (persists the weights into the image or cache) ->
       # prevents re-downloading of model every single time CI run -> faster CI workflow
       - name: Cache ESM weights
-        uses: actions/cache@4
+        uses: actions/cache@5
         with:
           path: ~/.cache/torch/hub/checkpoints
           key: esm2-t12-35M-UR50D
@@ -47,7 +47,7 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Build Docker image
         run: docker build -f Module_6_9_Docker/Dockerfile -t protein-api .
