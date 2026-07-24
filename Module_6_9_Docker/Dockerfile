@@ -10,12 +10,12 @@ WORKDIR /app
 # Install uv
 RUN pip install uv
 
-# Downloads ESM model once during build step -> faster CI workflow
-RUN python -c "import esm; esm.pretrained.esm2_t12_35M_UR50D()"
-
 # Copy and install dependencies
 COPY Module_6_9_Docker/requirements.txt requirements.txt
 RUN uv pip install --system --no-cache -r requirements.txt
+
+# Downloads ESM model once during build step -> faster CI workflow
+RUN python -c "import esm; esm.pretrained.esm2_t12_35M_UR50D()"
 
 # pull all needed files into the container
 COPY config.py .
