@@ -52,12 +52,13 @@ with open("README.md") as f:
 naive_chunks = chunk_naive(readme)
 recursive_chunks = chunk_recursive(readme)
 
-print(f"Naive: {len(naive_chunks)} chunks")
-print(f"Recursive: {len(recursive_chunks)} chunks")
-print("\n...Naive chunk 2...")
-print(naive_chunks[1])
-print("\n...Recursive chunk 2...")
-print(recursive_chunks[1])
+if __name__ == "__main__":
+  print(f"Naive: {len(naive_chunks)} chunks")
+  print(f"Recursive: {len(recursive_chunks)} chunks")
+  print("\n...Naive chunk 2...")
+  print(naive_chunks[1])
+  print("\n...Recursive chunk 2...")
+  print(recursive_chunks[1])
 
 
 """
