@@ -20,6 +20,8 @@ dependencies = [
     "fastapi>=0.139.2",
     "uvicorn>=0.51.0",
     "aiosqlite>=0.22.1",
+    "sentence-transformers>=5.6.1",
+    "chromadb>=1.5.9",
 ]
 
 [dependency-groups]
