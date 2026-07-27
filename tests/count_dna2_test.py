@@ -1,6 +1,6 @@
 # Unit test for count_nucleotides
 
-from Module_4.count_dna2 import count_nucleotide
+from Module_4_Files_Error_Handling.count_dna2 import count_nucleotide
 
 def test_count_normal_dna_string():
   """Counting normal DNA string returns correct number of each nucleoside in the string"""

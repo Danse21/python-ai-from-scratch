@@ -16,6 +16,7 @@
 # Disaggregated performance metrics: Instead of checking overall model accuracy (e.g., 90 % accurate),
 # you split the test set by demographic group and measure accuracy per group:
 
+# This is just a simple code sample for care data
 for group in ["age_under_40", "age_under_70", "race_A", "race_B"]:
   subset = test_data[test_data["group"] == group]
   print(group, accuracy_score(subset["true"], subset["predicted"]))

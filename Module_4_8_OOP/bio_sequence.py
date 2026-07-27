@@ -7,7 +7,7 @@
 import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from Module_4.calculate_base_content import calculate_gc_content
+from Module_4_Files_Error_Handling.calculate_base_content import calculate_gc_content
 
 class BioSequence:
   def __init__(self, sample_id: str, sequence: str):
