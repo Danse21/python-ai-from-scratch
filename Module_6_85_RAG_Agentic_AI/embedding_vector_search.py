@@ -1,4 +1,4 @@
-# Embedding & vector search: This is phenomenon in which a chunk of text becomes searchable by converting it into
+# Embedding & vector search: This is a phenomenon in which a chunk of text becomes searchable by converting it into
 # a vector of numbers, an embedding, where semantically similar text produces mathematically close vectors.
 # close = cosine similar or its inverse, distance.
 
@@ -6,7 +6,7 @@ from sentence_transformers import SentenceTransformer
 import chromadb
 from chunking_strategies import chunk_recursive
 
-model = SentenceTransformer("all-MiniLM-L6-v2")   # small, fast model with good baseline
+model = SentenceTransformer("all-MiniLM-L6-v2")   # small fast model with good baseline
 
 client = chromadb.PersistentClient(path="./chroma_db")
 collection = client.get_or_create_collection("project_docs")
@@ -39,7 +39,7 @@ Reflection question:
 Q1. For the encoding question, does the top-ranked chunk (lowest distance) actually contain the SQLite/`biodata.db` line from Architecture section?
 If not immediately, what would you adjust — chunk size, overlap, or something else?
 Answer: Yes, the top-ranked chunk (lowest distance) contains the database information. Output: Distance: 0.8408, SQLite database (`biodata.db`).
-One can also adjust by getting a corpus with more borderline-similar content or a slightly different query phrasing.
+One can also adjust by getting a corpus (text) with more borderline-similar content or a slightly different query phrasing.
 Q2. Vector search always returns your n_results top matches, even for the Chinese hamster query where nothing in the corpus is actually relevant.
 What did it return, and why is that a real production problem if you don't handle it downstream?
 Answer: It returns "the least unrelated things I have" on the README.md file. This is regardless of whether the gap happens to be wide or narrow,
