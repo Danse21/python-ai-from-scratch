@@ -18,13 +18,14 @@ def rerank(query: str, candidates: list[str], top_k: int = 3):
 db_results = collection.query(query_embeddings=model.encode(["What database is used to store protein metadata?"]).tolist(), n_results=5)
 hamster_results = collection.query(query_embeddings=model.encode(["how does the classifier handle Chinese hamster ovary cell proteins?"]).tolist(), n_results=5)
 
-print("Reranked: database question")
-for doc, score in rerank("What database is used to store protein metadata?", db_results["documents"][0]):
-  print(f"Score: {score:.4f} | {doc[:100]}")
+if __name__ == "__main__":
+  print("Reranked: database question")
+  for doc, score in rerank("What database is used to store protein metadata?", db_results["documents"][0]):
+    print(f"Score: {score:.4f} | {doc[:100]}")
 
-print("\nReranked: hamster question")
-for doc, score in rerank("how does the classifier handle Chinese handle hamster ovary cell proteins?", hamster_results["documents"][0]):
-  print((f"Score: {score:.4f} | {doc[:100]}"))
+  print("\nReranked: hamster question")
+  for doc, score in rerank("how does the classifier handle Chinese handle hamster ovary cell proteins?", hamster_results["documents"][0]):
+    print((f"Score: {score:.4f} | {doc[:100]}"))
 
 """
 Reflection:
