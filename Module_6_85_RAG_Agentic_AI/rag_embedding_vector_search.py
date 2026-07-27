@@ -4,7 +4,7 @@
 
 from sentence_transformers import SentenceTransformer
 import chromadb
-from chunking_strategies import chunk_recursive
+from rag_chunking_strategies import chunk_recursive
 
 model = SentenceTransformer("all-MiniLM-L6-v2")   # small fast model with good baseline
 

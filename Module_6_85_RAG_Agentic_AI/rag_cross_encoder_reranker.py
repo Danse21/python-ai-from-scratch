@@ -4,7 +4,7 @@
 # runs it only on the vector search's top-k, as a second, more expensive filtering pass.
 
 from sentence_transformers import CrossEncoder
-from embedding_vector_search import collection, model
+from rag_embedding_vector_search import collection, model
 
 reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 
