@@ -82,7 +82,7 @@ def run_agent(user_message: str, max_entries: int = 4) -> str:
         temperature=0.1,
       )
       break
-    except BadRequestError as e:
+    except BadRequestError:
       if attempt == max_entries - 1:
         return generate_answer(user_message)
       continue
@@ -90,7 +90,7 @@ def run_agent(user_message: str, max_entries: int = 4) -> str:
 
   response_message = response.choices[0].message
   tool_calls = response_message.tool_calls
-  print(f"DEBUG: tool_calls = {tool_calls}")
+  # print(f"DEBUG: tool_calls = {tool_calls}")
 
   if not tool_calls:
     return response_message.content    # Let model answer directly, no tool needed
@@ -101,7 +101,7 @@ def run_agent(user_message: str, max_entries: int = 4) -> str:
     name = tool_call.function.name
     args = json.loads(tool_call.function.arguments)
     result = available_functions[name](**args)
-    print(f"DEBUG: tool result for {name} = {result!r}")
+    # print(f"DEBUG: tool result for {name} = {result!r}")
 
     messages.append({
       "role": "tool",
