@@ -43,9 +43,10 @@ def generate_answer(query: str, k: int = 5, rerank_threshold: float = 0.0) -> st
   )
   return response.choices[0].message.content
 
-print(generate_answer("What database is used to store protein metadata?"))
-print()
-print(generate_answer("How does the classifier handle Chinese hamster ovary cell proteins?"))
+if __name__ == "__main__":
+  print(generate_answer("What database is used to store protein metadata?"))
+  print()
+  print(generate_answer("How does the classifier handle Chinese hamster ovary cell proteins?"))
 
 """
 Q1. temperature=0.1 is deliberately low. Why does that matter specifically for a RAG answer, as opposed to

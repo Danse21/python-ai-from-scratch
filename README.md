@@ -6,11 +6,13 @@ Throughout this training, I used **Claude AI** for architectural design, structu
 
 Each folder contains solutions to exercises completed at the end of each module.
 
-## Flagship Project: Protein Function Prediction API
+## Project:
 
-The core deliverable of this training is a production-style API that predicts whether a protein seqence is a kinase or a protease, built entirely from scratch across several modules.
+### Title: Protein Function Prediction API
 
-### Project Architecture
+The core deliverable of this training is an API demonstrating real-world engineering practices, which predicts whether a protein seqence is a kinase or a protease, built entirely from scratch across several modules.
+
+### Architecture
 
 The Protein Function Prediction pipeline fetches protein sequences from the Uniprot REST API, generates embeddings using Meta's ESM-2 protein language model, trains a scikit-learn logistic regression classifier on those embeddings, and stores protein metadata in a local SQLite database (`biodata.db`).
 
@@ -54,3 +56,5 @@ Every push to `main` and every pull request triggers a GitHub Actions workflow (
 - The classifier was trained on a small dataset (30 kinases + 30 proteases fetched from Uniprot), so predictions on sequences outside that training distribution may be unreliable.
 - `DB_PATH` in `config.py` resolves relative to the project root; the SQLite database file must sit alongside `config.py`.
 - The API expects raw, unmodified amino acid sequences using the 20 standard single-letter codes only.
+- Retrieval quality has only been validated against a small, hand built 5-query test set; no validation yet against broader or heavily paraphrased queries.
+- The Groq API for RAG and agent components require network access at runtime.
