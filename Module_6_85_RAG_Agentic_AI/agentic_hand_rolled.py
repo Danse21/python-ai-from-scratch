@@ -110,7 +110,7 @@ def run_agent(user_message: str, max_entries: int = 4) -> str:
       "content": result,
     })
 
-  final = client.chat.completions.create(model="llama-3.3-70b-versatile", messages=messages, temperature=0.1)
+  final = client.chat.completions.create(model="openai/gpt-oss-120b", messages=messages, temperature=0.1)
   return final.choices[0].message.content
 
 if __name__ == "__main__":

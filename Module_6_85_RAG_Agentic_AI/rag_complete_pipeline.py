@@ -37,7 +37,7 @@ def generate_answer(query: str, k: int = 5, rerank_threshold: float = 0.0) -> st
   Question: {query}
   Answer:"""
   response = client.chat.completions.create(
-    model="llama-3.3-70b-versatile",
+    model="openai/gpt-oss-120b",
     messages=[{"role": "user", "content": prompt}],
     temperature=0.1,
   )

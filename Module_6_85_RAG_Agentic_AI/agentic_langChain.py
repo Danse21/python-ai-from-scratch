@@ -13,7 +13,7 @@ from config import DB_PATH
 from groq import BadRequestError
 from rag_complete_pipeline import generate_answer
 
-llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.1)
+llm = ChatGroq(model="openai/gpt-oss-120b", temperature=0.1)
 
 @tool
 def get_protein_info(uniprot_id: str) -> str:
