@@ -15,10 +15,10 @@ jobs:
 
     steps:
       - name: check out code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
       - name: set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
@@ -38,8 +38,7 @@ jobs:
 
       - name: Run tests
         run: |
-          cd tests
-          pytest test_async_endpoint.py -v
+          pytest tests/test_async_endpoint.py -v
 
   build:
     runs-on: ubuntu-latest
