@@ -38,7 +38,7 @@ jobs:
 
       - name: Run tests
         run: |
-          cd Module_6_8_fastapi
+          cd tests
           pytest test_async_endpoint.py -v
 
   build:
