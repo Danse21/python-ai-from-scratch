@@ -10,8 +10,8 @@ from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
 from Bio import SeqIO
 from Bio.SeqUtils import gc_fraction
-from Module_4_8_OOP.dna_sequence import DNASequence
-from Module_5_2_SQL_Database.sql_in_function import save_sequence
+from Module_4_8_oop.dna_sequence import DNASequence
+from Module_5_2_sql_database.sql_in_function import save_sequence
 
 records = [
   SeqRecord(Seq("AGTTCGCGATGAAGCTA"), id="P001", description="E. coli 16S rRNA"),

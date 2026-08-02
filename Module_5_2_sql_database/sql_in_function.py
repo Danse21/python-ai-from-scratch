@@ -9,7 +9,7 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config import DB_PATH
 import sqlite3
-from Module_4_8_OOP.dna_sequence import DNASequence
+from Module_4_8_oop.dna_sequence import DNASequence
 
 def save_sequence(seq: DNASequence, organism: str, conn) -> None:
   cursor = conn.cursor()
