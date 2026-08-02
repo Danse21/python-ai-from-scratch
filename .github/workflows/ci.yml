@@ -15,10 +15,10 @@ jobs:
 
     steps:
       - name: check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -37,10 +37,9 @@ jobs:
           uv pip install --system --no-cache -r Module_6_90_docker/requirements-test.txt
 
       - name: Run tests
-        env:
-          PYTHONPATH: .
         run: |
-          pytest tests/test_async_endpoint.py -v
+          cd Module_6_8_fastapi
+          pytest test_async_endpoint.py -v
 
   build:
     runs-on: ubuntu-latest
