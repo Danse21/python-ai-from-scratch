@@ -1,5 +1,5 @@
 import pytest
-from Module_4_8_OOP.dna_sequence import DNASequence
+from Module_4_8_oop.dna_sequence import DNASequence
 
 def test_Invalid_input_data_raises_error():
   """Passing invalid input data type raises TypeError"""
