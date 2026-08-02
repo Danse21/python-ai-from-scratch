@@ -11,7 +11,7 @@ WORKDIR /app
 RUN pip install uv
 
 # Copy and install dependencies
-COPY Module_6_9_docker/requirements.txt requirements.txt
+COPY Module_6_90_docker/requirements.txt requirements.txt
 RUN uv pip install --system --no-cache -r requirements.txt
 
 # Downloads ESM model once during build step -> faster CI workflow
