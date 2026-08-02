@@ -11,7 +11,7 @@ WORKDIR /app
 RUN pip install uv
 
 # Copy and install dependencies
-COPY Module_6_9_Docker/requirements.txt requirements.txt
+COPY Module_6_9_docker/requirements.txt requirements.txt
 RUN uv pip install --system --no-cache -r requirements.txt
 
 # Downloads ESM model once during build step -> faster CI workflow
@@ -20,10 +20,10 @@ RUN python -c "import esm; esm.pretrained.esm2_t12_35M_UR50D()"
 # pull all needed files into the container
 COPY config.py .
 COPY biodata.db .
-COPY Module_6_8_FastAPI/ ./Module_6_8_FastAPI/
+COPY Module_6_8_fastapi/ ./Module_6_8_fastapi/
 
 # Final working directly inside the container
-WORKDIR /app/Module_6_8_FastAPI
+WORKDIR /app/Module_6_8_fastapi
 EXPOSE 8000
 
 # Command to run when container starts

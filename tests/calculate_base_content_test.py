@@ -1,5 +1,5 @@
 import pytest
-from Module_4_Files_Error_Handling.calculate_base_content import calculate_gc_content
+from Module_4_0_files_error_handling.calculate_base_content import calculate_gc_content
 
 def test_known_DNA_string_calculate_expected_GC_content():
   """Given a known DNA string conataining GC% calculated as expected"""

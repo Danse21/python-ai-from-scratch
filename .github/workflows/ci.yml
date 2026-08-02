@@ -38,7 +38,7 @@ jobs:
 
       - name: Run tests
         run: |
-          cd Module_6_8_FastAPI
+          cd Module_6_8_fastapi
           pytest test_async_endpoint.py -v
 
   build:
@@ -50,7 +50,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Docker image
-        run: docker build -f Module_6_9_Docker/Dockerfile -t protein-api .
+        run: docker build -f Module_6_90_docker/Dockerfile -t protein-api .
 
 # Reflection questions:
 # Q1. What does needs: test do in the build job, and why does that ordering matter here specifically (hint: think about what happens if you build an image around code that fails its own tests)?
