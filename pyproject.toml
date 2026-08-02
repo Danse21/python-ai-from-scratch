@@ -38,7 +38,9 @@ dev = [
 ]
 
 [tool.pytest.ini_options]
-pythonpath = "."
+pythonpath = [
+  "."
+]
 
 [tool.uv]
 # evaluate both Mac x86_64 and Linux environments
