@@ -1,6 +1,6 @@
 import pytest
 from fastapi.testclient import TestClient
-from Module_6_8_FastAPI.async_endpoint import app
+from Module_6_8_fastapi.async_endpoint import app
 
 # Fixture ensures lifespan runs (loads ESM + classifier) before tests
 @pytest.fixture(scope="module")
