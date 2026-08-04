@@ -1,0 +1,1 @@
+Fargate is AWS's serverless container runtime where you define what to run and how much CPU/memory it needs, and AWS handles the underlying servers.

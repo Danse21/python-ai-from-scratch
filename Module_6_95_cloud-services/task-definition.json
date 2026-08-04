@@ -1,0 +1,28 @@
+{
+  "family": "protein-api-task",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "1024",
+  "memory": "4096",
+  "containerDefinitions": [
+    {
+      "name": "protein-api",
+      "image": "426187995179.dkr.ecr.eu-north-1.amazonaws.com/protein-api:latest",
+      "portMappings": [{ "containerPort": 8000, "protocol": "tcp" }],
+      "secrets": [
+        {
+          "name": "GROQ_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:eu-north-1:426187995179:secret:groq-api-key"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/protein-api",
+          "awslogs-region": "eu-north-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ]
+}
