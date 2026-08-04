@@ -1,4 +1,5 @@
-Reflection Qestion:
+Exercise 1:
+Reflection question
 Q1. Why does creating a separate IAM user with a scoped policy matter more than just using your root account's access keys, specifically from a security standpoint?
 Answer: This is to reduce aws account compromise risk. The root credentials cannot be scoped and IAM policies and permission boundaries don't apply to root, so there's no way to limit blast radius if a root key leaks; only the option to lock it away entirely (AWS recommends enabling MFA on root and never to use access key). An IAM user's permissions can be explicitly scoped, revoked instantly, and rotated without touching anything else.
 Q2. eu-north-1 (Stockholm) versus a US region — beyond latency, what's one concrete reason a Swedish company might require data to stay in an EU region specifically?

@@ -1,0 +1,8 @@
+ECR (Elastic Container Registry) is AWS's Docker registry.
+
+Exercise 2:
+Reflection questions
+Q1. `docker tag` doesn't create a new copy of the image, it adds a second name pointing at the same image layers. Why does the ECR repository URI need to be baked into the tag itself, rather than just passing the registry as a separate argument to `docker push`?
+Answer: `docker push` has no separate 'registry' argument, so the registry cannot be passed. `docker push` synthax is <image>:<tag>. Docker determines where to push purely by parsing the registry hostname out of the image name itself. So, the image name is the address that specifies destination, as a result the registry URI has to be baked directly into the tag or Docker has no way to know where to go.
+Q2. Your Docker image also bundles PyTorch and ESM-2 weights, likely several GB. What's one practical consequence of that size when it comes to push time and ECR storage costs, and would you consider optimizing the image before pushing to a real production registry?
+Answer: One practical consequence of size is slow docker push process. In addition, ECR charges per GB stored per month, so the consequence of a bloated image will be both slow push and reoccuring monthly cost. One way to optimize is to used multi-stage Docker builds technique (compiling/downloading in one stage, copying only the final artifacts into a slim runtime stage).
